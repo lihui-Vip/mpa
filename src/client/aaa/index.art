@@ -1,0 +1,5 @@
+
+{{include '../header.art'}}
+<h2>Hello art-template!!!</h2>
+<h3>{{msg}}</h3>
+<p>{{title}}</p>

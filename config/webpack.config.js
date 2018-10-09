@@ -10,7 +10,7 @@ const targetPath = path.resolve(__dirname, '../src/client')
 const folders = _.chain(files)
   .map(v => ({ name: v, path: path.resolve(targetPath, v) }))
   .filter(v => fs.statSync(v.path).isDirectory());
-  console.log(folders.map(v => [v.name, path.resolve(v.path, 'index.js')])
+console.log(folders.map(v => [v.name, path.resolve(v.path, 'index.js')])
   .object()
   .extend({
     vendor: ['underscore', 'jquery']
@@ -34,10 +34,21 @@ export default {
         exclude: /node_modules/,
         use: 'babel-loader',
       },
+      {
+        test: /\.art$/,
+        loader: "art-template-loader",
+        options: {
+          // art-template options (if necessary)
+          // @see https://github.com/aui/art-template
+        },
+      },
     ],
   },
+  node: {
+    fs: 'empty',
+  },
   resolve: {
-    extensions: ['.js', '.vue'],
+    extensions: ['.js', '.art', '.html'],
   },
   plugins: folders
     .map(v => new HtmlWebpackPlugin({
